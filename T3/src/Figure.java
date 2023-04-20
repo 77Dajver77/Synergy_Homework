@@ -80,7 +80,7 @@ public class Figure {
                 for (int line = 0; line < 9; line++) {
                     if (this.фигураДвиж[line][col] == 'X') {
                         this.фигураДвиж[line][col] = ' ';
-                        this.фигураДвиж[line][col+1] = 'X';
+                        this.фигураДвиж[line][col + 1] = 'X';
                     }
                 }
             }
@@ -105,23 +105,23 @@ public class Figure {
     boolean shiftLeft(char[][] array) {                                // Перемещение фигуры влево.
         copyArrayMove();
         boolean endShiftLeft = false;
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y >= 9; y++) {
-                if (((this.фигураДвиж[x][y] == 'X') || (this.фигураДвиж[x + 1][y] == 'X')) && (y == 0)) break;
-                if (((this.фигураДвиж[x][y] == 'X') || (this.фигураДвиж[x + 1][y] == 'X')) && (y > 0)) {
-                    if (this.фигураДвиж[x][y] == 'X') {
-                        this.фигураДвиж[x][y - 1] = 'X';
-                        this.фигураДвиж[x][y] = ' ';
-                        endShiftLeft = true;
-                    }
-                    if (this.фигураДвиж[x + 1][y] == 'X') {
-                        this.фигураДвиж[x + 1][y - 1] = 'X';
-                        this.фигураДвиж[x + 1][y] = ' ';
-                    }
+        for (int line = 0; line < 9; line++) {
+            if (this.фигураДвиж[line][0] == 'X') {
+                endShiftLeft = true;
+                break;
+            }
+        }
 
+        if (!endShiftLeft) {
+            for (int col = 0; col <= 9; col++) {
+                for (int line = 0; line < 9; line++) {
+                    if (this.фигураДвиж[line][col] == 'X') {
+                        this.фигураДвиж[line][col] = ' ';
+                        this.фигураДвиж[line][col - 1] = 'X';
+                    }
                 }
             }
-            if (endShiftLeft) break;
+
         }
 
         for (int x = 0; x < 10; x++) {
