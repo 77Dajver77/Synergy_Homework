@@ -1,31 +1,31 @@
 
 public class Figure {
-    char[][] фигура = new char[10][10];
+    char[][] figure = new char[10][10];
     char[][] фигураДвиж = new char[10][10];
 
     char[][] getFigure() {                                                      //Получение фигуры
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
-                this.фигура[x][y] = ' ';
+                this.figure[x][y] = ' ';
             }
         }
         int x = (int) (Math.random() * 7);
         int y = (int) (Math.random() * 2);
         for (int horizontal = x; horizontal <= x + y; horizontal++) {
-            this.фигура[0][horizontal] = 'X';
+            this.figure[0][horizontal] = 'X';
         }
         y = (int) (Math.random() * 3);
         for (int horizontal = x; horizontal <= y + x; horizontal++) {
-            this.фигура[1][horizontal] = 'X';
+            this.figure[1][horizontal] = 'X';
         }
-        return this.фигура;
+        return this.figure;
     }
 
 
     void copyArrayMove() {
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
-                this.фигураДвиж[x][y] = this.фигура[x][y];
+                this.фигураДвиж[x][y] = this.figure[x][y];
             }
         }
     }
@@ -33,7 +33,7 @@ public class Figure {
     void copyArrayYesMove() {
         for (int x = 0; x < 10; x++) {
             for (int y = 0; y < 10; y++) {
-                this.фигура[x][y] = this.фигураДвиж[x][y];
+                this.figure[x][y] = this.фигураДвиж[x][y];
             }
         }
     }

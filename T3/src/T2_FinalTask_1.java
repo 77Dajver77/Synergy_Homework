@@ -1,49 +1,62 @@
+import java.io.*;
+
 // Пусть у Вас будет поле 10х10 (двумерный массив char). В случайном месте генерируется фигура:
 // можно начать с простых форм: …. :: … . : на Ваше усмотрение. Каждый ход считывайте от игрока: просто опустить фигуру,
 // или ещё сдвинуть ее влево-вправо. Считайте количество очков: полностью выстроенных линий (таковые сгорают).
 // Когда фигуре некуда упасть, игра закончена. В файл записывайте рекордное количество очков. Реализуйте по крайней мере два-три класса.
 public class T2_FinalTask_1 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         char[][] arrayFigureMove = new char[10][10];
-//        char[][] arrayFigure = new char[10][10];
-//        char[][] arrayFieldMove = new char[10][10];
         char[][] arrayField = new char[10][10];
         char move;
         boolean end = true;
+        int point = 0;
         Field field = new Field();
         Figure figure = new Figure();
-        field.поле = field.initializationField();                 // Инициализация игрового поля.
+        field.field = field.initializationField();                 // Инициализация игрового поля.
 
 
-        for (int y = 0; y < 100; y++) {
-            figure.фигура = figure.getFigure();
-            field.printField(figure.фигура);
+        do {
+            figure.figure = figure.getFigure();
+            field.printField(figure.figure);
 
-            for (int x = 0; x < 1000; x++ ){
+            do {
+                System.out.println("У вас " + point + " очков");
                 move = field.request();
                 if (move == 's') {
-                    end = figure.shiftDown(field.поле);
+                    end = figure.shiftDown(field.field);
                 }
                 if (move == 'a') {
-                    end = figure.shiftLeft(field.поле);
+                    end = figure.shiftLeft(field.field);
                 }
                 if (move == 'd') {
-                    end = figure.shiftRight(field.поле);
+                    end = figure.shiftRight(field.field);
                 }
-                if (end == true) {
-                    field.printField(figure.фигура);
-                }else break;
-
+                if (end) {
+                    field.printField(figure.figure);
+                }
+            } while (end);
+            field.getFieldFigure(figure.figure);
+            if (field.getLine()) {
+                point++;
             }
-            field.getFieldFigure(figure.фигура);
 
+        } while (!field.gameOver());
+
+        System.out.println("Вы прошли игру за " + point + " очков");
+        try {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Game.txt", true))); // true добавит новые данные
+            out.println(point);
+            out.close();
+        } catch (
+                IOException e) {
+            System.out.println(e);
         }
-
-
-
-
     }
 }
+
+
+
 
 
 
