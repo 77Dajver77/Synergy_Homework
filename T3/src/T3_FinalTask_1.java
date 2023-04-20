@@ -1,10 +1,16 @@
-import java.io.*;
-
 // Пусть у Вас будет поле 10х10 (двумерный массив char). В случайном месте генерируется фигура:
 // можно начать с простых форм: …. :: … . : на Ваше усмотрение. Каждый ход считывайте от игрока: просто опустить фигуру,
 // или ещё сдвинуть ее влево-вправо. Считайте количество очков: полностью выстроенных линий (таковые сгорают).
 // Когда фигуре некуда упасть, игра закончена. В файл записывайте рекордное количество очков. Реализуйте по крайней мере два-три класса.
-public class T2_FinalTask_1 {
+
+
+
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class T3_FinalTask_1 {
     public static void main(String[] args) throws IOException {
         char[][] arrayFigureMove = new char[10][10];
         char[][] arrayField = new char[10][10];
@@ -44,14 +50,20 @@ public class T2_FinalTask_1 {
         } while (!field.gameOver());
 
         System.out.println("Вы прошли игру за " + point + " очков");
-        try {
-            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("Game.txt", true))); // true добавит новые данные
-            out.println(point);
-            out.close();
-        } catch (
-                IOException e) {
-            System.out.println(e);
+
+
+        String value;
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("F:\\Java\\Synergy_Homework\\T3\\src\\Game.txt"))) {
+             value = reader.readLine();
         }
+       if (point > Integer.parseInt(value)) {
+           System.out.println("Вы побили рекорд " + value);
+           PrintWriter writerRecord = new PrintWriter("F:\\Java\\Synergy_Homework\\T3\\src\\Game.txt");
+           writerRecord.println(point);
+           writerRecord.close();
+
+
+       }
     }
 }
 
