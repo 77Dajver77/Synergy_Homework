@@ -1,11 +1,17 @@
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+// Медиабраузер. Пользователь вводит слово(слова) из названия песни/фильма, в iTunes API ищутся по этому названию варианты песен/фильмов
+// и предлагаются пользователю. Пользователь выбирает, какую песню/трейлер скачать, файл скачивается и воспроизводится.
+
+
+import java.io.IOException;
 
 public class T3_FinalTask_2 {
-    public static void main(String[] args) throws FileNotFoundException {
-        PrintWriter writerSecond = new PrintWriter("F:\\Java\\Synergy_Homework\\T3\\src\\Game.txt");
-        writerSecond.println("2");
-        writerSecond.close();
+    public static void main(String[] args) throws IOException {
+        ITunesMusicPlayer player = new ITunesMusicPlayer();
+        player.playSong("we will rock");
+
+
+
+
 
     }
 
