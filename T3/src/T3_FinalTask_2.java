@@ -3,11 +3,19 @@
 
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class T3_FinalTask_2 {
     public static void main(String[] args) throws IOException {
         ITunesMusicPlayer player = new ITunesMusicPlayer();
-        player.playSong("we will rock");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which song you are looking for?");
+        String name =scanner.nextLine();
+        player.playSong(name);
+
+
+
+
 
 
 
