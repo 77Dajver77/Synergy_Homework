@@ -1,11 +1,9 @@
 //4.  Отрефакторите(улучшите читабельность) кода вашей реализации анализа курса валют.
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -26,16 +24,7 @@ public class T3_Y7_Homework_4 {
         System.out.print("Год: ");
         int year = scanner.nextInt();
 
-        String dateString = "01/"+ month + "/"+ year;                                            // Формируем дату запроса.
-        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
-        String strDateStart = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));            // Приводим формат даты к требуемой для включения в запрос
-        int maxDate = date.lengthOfMonth();                                                      // Узнаем количество дней в введенном месяце
-
-        dateString = maxDate + "/"+ month + "/"+ year;
-        date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
-        String strDateEnd = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));              // Приводим формат даты к требуемой для включения в запрос
-
-        String page = downoloadWebPAge ("http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1="+ strDateStart+"&date_req2="+strDateEnd+"&VAL_NM_RQ=R01235"); //Запрос в ЦБР
+        String page = getStringRateMonth(month, year);                                            // Запрос с ЦБ на курс валюты за месяц
 
         int startIndex = page.indexOf("Record Date=");                                           // Поиск курса первого числа месяца из строки
         startIndex = startIndex+13;
@@ -44,17 +33,10 @@ public class T3_Y7_Homework_4 {
         startIndex = endIndex + 41;
         endIndex = startIndex + 5;
         String rate_1 = page.substring(startIndex,endIndex);
-        System.out.println();
-
-        int step =1;                                                                           // Обьявляем переменные для цикла
-        int len = page.length();
-        double doubleRate = Double.parseDouble (rate_1.replace(",","."));    // Преобразуем тип данных string в double
-        double rate_2 = doubleRate, differenceRate = 0, differenceRate_1 = 0;                                                          // Присваиваем исходные данные для дальнейшего поиска в цикле
+        double rate_2 = Double.parseDouble (rate_1.replace(",","."));
+        double differenceRate = 0;
         String strRateDate = date_1;
-
-
-
-        while (step < maxDate ) {
+        do {
             startIndex = page.indexOf("Record Date=", endIndex);                         // Поиск  даты
             startIndex = startIndex+13;
             endIndex = startIndex + 10;
@@ -62,31 +44,46 @@ public class T3_Y7_Homework_4 {
             startIndex = endIndex + 41;                                                   // Поиск курса на указанную дату
             endIndex = startIndex + 5;
             rate_1 = page.substring(startIndex,endIndex);
-            step++;
             System.out.println(date_1 +"      "+ rate_1);                               //Вывод даты и курса
-            doubleRate = Double.parseDouble (rate_1.replace(",",".")); // Преобразуем тип данных string в double
-            if (len-40 < endIndex) step = maxDate;                                      // Проверка конца строки
-            double doubleRate_1 = Double.parseDouble (rate_1.replace(",","."));
-            differenceRate_1 = rate_2 - doubleRate_1;
-            differenceRate_1 = Math.abs (differenceRate_1);
 
-            if ( differenceRate <  differenceRate_1) {                                                // Поиск максимальной разницы
+            double doubleRate_1 = Double.parseDouble (rate_1.replace(",","."));
+
+
+            if ( differenceRate <  Math.abs (rate_2 - doubleRate_1)) {                                                // Поиск максимальной разницы
                 differenceRate =  doubleRate_1 - rate_2;
                 strRateDate =  date_1;
             }
             rate_2 = doubleRate_1;
 
-        }
+        } while (!(page.length()-40 < endIndex));
+
         System.out.println();
+
+        getExtracted(month, differenceRate, strRateDate);
+
+
+
+    }
+
+    private static String getStringRateMonth(int month, int year) throws IOException {
+        String dateString = "01/"+ month + "/"+ year;                                            // Формируем дату запроса.
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        String strDateStart = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));            // Приводим формат даты к требуемой для включения в запрос
+
+
+        dateString = date.lengthOfMonth() + "/"+ month + "/"+ year;
+        date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        String strDateEnd = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));              // Приводим формат даты к требуемой для включения в запрос
+
+        String page = downoloadWebPAge ("http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1="+ strDateStart+"&date_req2="+strDateEnd+"&VAL_NM_RQ=R01235"); //Запрос в ЦБР
+        return page;
+    }
+
+    private static void getExtracted(int month, double differenceRate, String strRateDate) {
         if (differenceRate > 0 ) System.out.println(strRateDate + " - cамый большой скачок за "+ Month.of(month).getDisplayName(TextStyle.FULL_STANDALONE, new Locale("RU"))
                 + " месяц, долар вырос на " + differenceRate);
         else System.out.println(strRateDate + "Самый большой скачок за "+ Month.of(month).getDisplayName(TextStyle.FULL_STANDALONE, new Locale("RU"))
                 + " месяц, долар упал на " + differenceRate);
-
-        date = LocalDate.parse(strRateDate, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        Desktop.getDesktop().browse(new URI("https://ru.wikinews.org/wiki/Лента_новостей_"+ date.getDayOfMonth()
-                +"_" + Month.of(month).getDisplayName(TextStyle.FULL, new Locale("RU")) + "_"  + date.getYear() + "_года")); // Выводим страничку в браузере, события за дату максимального скачка курса
-
     }
 
     private static String downoloadWebPAge(String url) throws IOException {
