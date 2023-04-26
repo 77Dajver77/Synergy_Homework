@@ -5,7 +5,7 @@
 //5.  Доработайте змейку, пусть на поле еще могут быть стены. в них тоже нельзя врезаться.
 
 
-public class T3_Y10_Homework_2_3 {
+public class T3_Y10_Homework_2_3_4_5 {
     public static void main(String[] args) {
         char ch = 1148;
         Field field = new Field();
