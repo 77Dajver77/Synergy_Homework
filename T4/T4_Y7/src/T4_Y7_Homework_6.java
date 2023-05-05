@@ -19,8 +19,5 @@ public class T4_Y7_Homework_6 {
 
     }
 
-    public static void openFile(File file) {
 
-
-    }
 }
