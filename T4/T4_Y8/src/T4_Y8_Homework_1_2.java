@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 //1.  Пользователь вводит 5 названий файлов. Они могут повторяться. Сохраните в каждый из файл названия ВСЕХ 5 файлов, используйте try with resources.
 //2.  Пользователь вводит 5 названий файлов. Сохраните в каждый из файл названия ВСЕХ 5 файлов, используйте try.. catch..finally.
-public class T4_Y8_Homework_1 {
+public class T4_Y8_Homework_1_2 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         String[] files = new String[5];
