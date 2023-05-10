@@ -1,6 +1,6 @@
 public class Peonies extends Flower {
     public int pricePeonies(int quantity ) {
-        bouquet = bouquet + quantity;
+        colFlower = colFlower + quantity;
         int sum = quantity * price;
         return sum;
     }

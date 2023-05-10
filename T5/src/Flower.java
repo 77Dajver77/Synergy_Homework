@@ -1,7 +1,5 @@
-import java.security.PublicKey;
-
 public class Flower {
-    public static int bouquet = 0;
+    public static int colFlower = 0;
     public String madeIn;
     public int price;
     public int shelfLife;

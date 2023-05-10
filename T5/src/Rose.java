@@ -1,8 +1,7 @@
 public class Rose extends Flower {
 
     public int priceRose (int quantity ) {
-        madeIn = "Italy";
-        price = 100;
+        colFlower = colFlower + quantity;
         int sum = quantity * price;
         return sum;
     }

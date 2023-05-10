@@ -1,6 +1,6 @@
 public class Tulip extends Flower {
     public int priceTulip (int quantity ) {
-        bouquet = bouquet + quantity;
+        colFlower = colFlower + quantity;
        int sum = quantity * price;
         return sum;
     }

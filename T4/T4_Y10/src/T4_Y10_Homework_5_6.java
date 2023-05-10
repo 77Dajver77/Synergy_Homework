@@ -7,7 +7,7 @@ public class T4_Y10_Homework_5_6 {
         Default example = new Default();
         System.out.println(example.cat);
         for (int i = 0; i < 10; i++) {
-          nul[i] = example.cat;
+  //        nul[i] = example.cat;
         }
     }
 }
