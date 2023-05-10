@@ -45,6 +45,9 @@
       <module fileurl="file://$PROJECT_DIR$/T4/T4_Y7/T4_Y7.iml" filepath="$PROJECT_DIR$/T4/T4_Y7/T4_Y7.iml" />
       <module fileurl="file://$PROJECT_DIR$/T4/T4_Y8/T4_Y8.iml" filepath="$PROJECT_DIR$/T4/T4_Y8/T4_Y8.iml" />
       <module fileurl="file://$PROJECT_DIR$/T4/T4_Y9/T4_Y9.iml" filepath="$PROJECT_DIR$/T4/T4_Y9/T4_Y9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T5/T5.iml" filepath="$PROJECT_DIR$/T5/T5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T5/T5_Y1/T5_Y1.iml" filepath="$PROJECT_DIR$/T5/T5_Y1/T5_Y1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/T5/T5_Y2/T5_Y2.iml" filepath="$PROJECT_DIR$/T5/T5_Y2/T5_Y2.iml" />
     </modules>
   </component>
 </project>
