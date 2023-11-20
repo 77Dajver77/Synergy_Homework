@@ -15,12 +15,9 @@ public class MainTread {
             for (int z = 0; z < 101; z++) {
                 if (z % 10 == 0) System.out.println(z);
             }
-
-
         }
 
     }
-
     static class NewTread extends Thread {
 
         @Override
