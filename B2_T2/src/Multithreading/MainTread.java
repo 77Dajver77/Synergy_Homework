@@ -16,7 +16,6 @@ public class MainTread {
                 if (z % 10 == 0) System.out.println(z);
             }
         }
-
     }
     static class NewTread extends Thread {
 
